@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import vedic from '../../assets/vedic.png'
 import { SafeAreaView, ScrollView, Dimensions, Image } from 'react-native'
 import { Link } from 'expo-router'
@@ -11,8 +11,12 @@ import { useNavigation } from 'expo-router'
 import { router } from 'expo-router'
 
 export default function SignIn() {
+  const [email,setEmail]=useState('')
+  const [password,setPassword]=useState('')
+  function signInSubmit(){
+    console.log(`The email is ${email} and the password is ${password}` )
+  }
   const navigation = useNavigation();
-
   return (
     <SafeAreaView className="bg-first h-full">
       <ScrollView>
@@ -37,14 +41,13 @@ export default function SignIn() {
             <View>      
          <Text className="text-lg text-gray-100 font-semibold mt-4">Email</Text>
               <TextInput
-                //   style={
-                //     { height: 40,
-                //     margin: 12,
-                //     borderWidth: 1,
-                //     padding: 10,
-                //   }
-                // }
+                value={email}
                 className=" py-3 px-4 rounded-lg bg-slate-700 "
+                onChange={(e)=>{
+                  setEmail(e.target.value) 
+                  console.log(email);
+                  
+                }}
 
               />
             </View>
@@ -52,15 +55,9 @@ export default function SignIn() {
 
             <View>     
             <Text className="text-lg text-gray-100 font-semibold mt-4">Password</Text>
-              <TextInput
-                //   style={
-                //     { height: 40,
-                //     margin: 12,
-                //     borderWidth: 1,
-                //     padding: 10,
-                //   }
-                // }
-                className=" py-3 px-4 rounded-lg bg-slate-700 "
+              <TextInput className=" py-3 px-4 rounded-lg bg-slate-700 "
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
 
               />
             </View>
@@ -71,7 +68,7 @@ export default function SignIn() {
 
           <CustomButton
             title="Sign In"
-            handlePress={()=>router.push('/home')}
+            handlePress={()=>signInSubmit()}
             containerStyles="mt-7"
           // isLoading={isSubmitting}
           />
